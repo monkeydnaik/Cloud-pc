@@ -1,0 +1,58 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "StartupIdea": {
+      "title": "Startup Idea",
+      "description": "Validated startup idea with AI analysis",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "analysis": {
+          "type": "object",
+          "properties": {
+            "marketDemandScore": { "type": "number" },
+            "successProbability": { "type": "number" },
+            "fundingPotential": { "type": "number" },
+            "competitors": { "type": "array", "items": { "type": "object" } },
+            "targetAudience": { "type": "string" },
+            "monetization": { "type": "array", "items": { "type": "string" } },
+            "risks": { "type": "array", "items": { "type": "string" } },
+            "suggestions": { "type": "array", "items": { "type": "string" } },
+            "swot": { "type": "object" },
+            "roadmap": { "type": "array", "items": { "type": "object" } },
+            "mvpFeatures": { "type": "array", "items": { "type": "string" } },
+            "pitchDeck": { "type": "object" },
+            "businessModel": { "type": "string" },
+            "suggestedNames": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "description"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/ideas/{ideaId}": {
+      "schema": "StartupIdea",
+      "description": "Startup ideas and their AI validations"
+    }
+  }
+}
