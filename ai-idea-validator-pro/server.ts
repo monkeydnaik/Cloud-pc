@@ -2,6 +2,7 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import path from "path";
 import { fileURLToPath } from "url";
+import rateLimit from "express-rate-limit";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,7 +28,13 @@ async function startServer() {
   } else {
     // Serve static files in production
     app.use(express.static(path.join(__dirname, "dist")));
-    app.get("*", (req, res) => {
+
+    const indexLimiter = rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      max: 100, // limit each IP to 100 requests per window
+    });
+
+    app.get("*", indexLimiter, (req, res) => {
       res.sendFile(path.join(__dirname, "dist", "index.html"));
     });
   }
