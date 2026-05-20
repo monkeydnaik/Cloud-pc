@@ -1,9 +1,10 @@
 import { Canvas } from '@react-three/fiber'
-import { Sky, KeyboardControls } from '@react-three/drei'
+import { Sky, KeyboardControls, PointerLockControls } from '@react-three/drei'
 import { Physics } from '@react-three/rapier'
 import { Player } from './components/Player'
 import { Islands, islands } from './components/Islands'
 import { Crystals } from './components/Crystals'
+import { Enemies } from './components/Enemies'
 import { UI } from './components/UI'
 
 const keyboardMap = [
@@ -28,7 +29,9 @@ export default function App() {
             <Player />
             <Islands />
             <Crystals islands={islands} />
+            <Enemies islands={islands} />
           </Physics>
+          <PointerLockControls />
         </Canvas>
       </KeyboardControls>
     </>

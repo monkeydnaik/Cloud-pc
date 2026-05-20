@@ -9,6 +9,7 @@ export function UI() {
         <div>
           <h1 className="text-3xl text-cyan-300 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">Aether's Wake</h1>
           <div className="text-sm font-normal mt-1 opacity-80">WASD to move, Space to jump, Hold Space to glide</div>
+          <div className="text-sm font-normal opacity-80">Shift to Dash, Click to Grapple</div>
         </div>
         <div className="text-2xl flex items-center gap-2 bg-black/30 px-4 py-2 rounded-lg border border-cyan-500/30">
           <span className="text-cyan-400">Aether Crystals:</span> {score}
