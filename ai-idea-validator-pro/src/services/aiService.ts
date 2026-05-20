@@ -33,11 +33,8 @@ export interface IdeaAnalysis {
 export async function analyzeIdea(title: string, description: string): Promise<IdeaAnalysis> {
   const model = "gemini-3.1-pro-preview";
   
-  const prompt = `
-    Analyze the following startup idea:
-    Title: ${title}
-    Description: ${description}
-
+  const systemInstruction = `
+    Analyze the following startup idea.
     Provide a comprehensive validation and analysis in JSON format.
     Include scores (1-100) for market demand, success probability, and funding potential.
     List 3-5 competitors with details (pricing, audience, strengths, weaknesses).
@@ -51,10 +48,16 @@ export async function analyzeIdea(title: string, description: string): Promise<I
     Create a brief pitch deck outline (problem, solution, market size, business model, competition).
   `;
 
+  const prompt = `
+    Title: ${title}
+    Description: ${description}
+  `;
+
   const response = await ai.models.generateContent({
     model,
     contents: [{ parts: [{ text: prompt }] }],
     config: {
+      systemInstruction,
       responseMimeType: "application/json",
       responseSchema: {
         type: Type.OBJECT,
