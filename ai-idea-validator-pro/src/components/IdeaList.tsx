@@ -5,10 +5,11 @@ import { useAuth } from '../context/AuthContext';
 import { handleFirestoreError, OperationType } from '../utils/errorHandlers';
 import { motion } from 'motion/react';
 import { ChevronRight, Calendar, TrendingUp, Zap } from 'lucide-react';
+import { IdeaDocument } from '../services/aiService';
 
-export function IdeaList({ onSelectIdea }: { onSelectIdea: (idea: any) => void }) {
+export function IdeaList({ onSelectIdea }: { onSelectIdea: (idea: IdeaDocument) => void }) {
   const { user } = useAuth();
-  const [ideas, setIdeas] = useState<any[]>([]);
+  const [ideas, setIdeas] = useState<IdeaDocument[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export function IdeaList({ onSelectIdea }: { onSelectIdea: (idea: any) => void }
       const ideasData = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
-      }));
+      })) as IdeaDocument[];
       setIdeas(ideasData);
       setLoading(false);
     }, (error) => {

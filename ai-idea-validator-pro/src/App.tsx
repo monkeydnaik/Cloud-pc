@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { Layout } from './components/Layout';
 import { IdeaForm } from './components/IdeaForm';
 import { AnalysisDashboard } from './components/AnalysisDashboard';
+import { IdeaDocument } from './services/aiService';
 import { IdeaList } from './components/IdeaList';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { motion, AnimatePresence } from 'motion/react';
@@ -11,7 +12,7 @@ import { Rocket, ShieldCheck, BarChart3, Globe, Sparkles, ArrowRight } from 'luc
 function AppContent() {
   const { user, loading, login, error, clearError } = useAuth();
   const [currentPage, setCurrentPage] = useState('home');
-  const [selectedIdea, setSelectedIdea] = useState<any>(null);
+  const [selectedIdea, setSelectedIdea] = useState<IdeaDocument | null>(null);
 
   if (loading) {
     return (
@@ -28,7 +29,7 @@ function AppContent() {
     setCurrentPage('dashboard');
   };
 
-  const handleSelectIdea = (idea: any) => {
+  const handleSelectIdea = (idea: IdeaDocument) => {
     setSelectedIdea(idea);
     setCurrentPage('analysis');
   };

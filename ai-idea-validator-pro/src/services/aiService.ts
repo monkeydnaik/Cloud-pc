@@ -1,6 +1,16 @@
 import { GoogleGenAI, Type } from "@google/genai";
+import { Timestamp } from "firebase/firestore";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
+
+export interface IdeaDocument {
+  id: string;
+  title: string;
+  description: string;
+  userId: string;
+  analysis: IdeaAnalysis;
+  createdAt: Timestamp;
+}
 
 export interface IdeaAnalysis {
   marketDemandScore: number;
